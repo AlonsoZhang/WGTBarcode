@@ -14,6 +14,7 @@ import CoreData
 class ViewController: UIViewController {
     
     @IBOutlet weak var videoOutputView: UIImageView!
+    @IBOutlet weak var showInfo: UITextField!
     
     let textBoxSize: CGSize = CGSize(width: 100.0, height: 20.0)
     let contentFormatting: [NSAttributedStringKey : Any] = [
@@ -60,16 +61,9 @@ class ViewController: UIViewController {
         
         // Show the video as it's being captured
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        let deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation
         // Orientation is reversed
-        switch (deviceOrientation) {
-        case .landscapeLeft:
-            previewLayer.connection?.videoOrientation = .landscapeLeft
-        case .landscapeRight:
-            previewLayer.connection?.videoOrientation = .landscapeRight
-        default:
-            previewLayer.connection?.videoOrientation = .portrait
-        }
+
+        previewLayer.connection?.videoOrientation = .portrait
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.frame = self.videoOutputView.bounds
         self.videoOutputView.layer.addSublayer(previewLayer)
